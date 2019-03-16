@@ -41,10 +41,10 @@ public class UsersController {
         return null;
     }
 
-    @GetMapping("/test")
-    public Object test() {
-        System.out.println("test auth");
-        return null;
+    @GetMapping("/test/{username}")
+    public Object test(@PathVariable("username") String username) {
+        Users user = usersService.findUserByUsername(username);
+        return "hello world :" + user.getUsername();
     }
 
 }

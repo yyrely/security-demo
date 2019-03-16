@@ -26,8 +26,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    //Redis模板
     private StringRedisTemplate redisTemplate;
-
+    //spring自带的Jackson
     private ObjectMapper objectMapper;
 
     private AuthenticationManager authenticationManager;
@@ -43,8 +44,9 @@ public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFil
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         try {
-            //从body中取出
+            //从body中取出,参数是在请求体中使用json形式传入的
             Users users = objectMapper.readValue(request.getInputStream(), Users.class);
+            //模仿UsernamePasswordAuthenticationFilter的方式，将用户名密码进行比较
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(users.getUsername(), users.getPassword()));
         } catch (IOException e) {
             e.printStackTrace();

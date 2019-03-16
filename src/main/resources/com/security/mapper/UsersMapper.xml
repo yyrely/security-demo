@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.security.mapper.UsersMapper">
+    <insert id="save">
+        INSERT into user(username,password,role) values(#{user.username},#{user.password},#{user.role});
+    </insert>
+
+    <select id="findUserByUsername" resultType="com.security.entity.Users">
+      select *
+      from user
+      where username = #{username}
+  </select>
+
+</mapper>
